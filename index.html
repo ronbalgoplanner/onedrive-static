@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="/js/onedrive.js"></script>
+    <script>
+      let loaded = false;
+      const redirectUri = window.location.href.replace("index.html", "callback.html");
+      var odOptions = {
+        clientId: "e2949a80-a23b-4639-8325-4e65905321c8",
+        action: "share",
+        multiSelect: true,
+        success: function (response) {
+          const files = response.value.map((file) => file.parentReference.path + "/" + file.name);
+          console.log(JSON.stringify({ user: { accessToken: response.accessToken }, files }));
+        },
+        cancel: function () {
+          /* cancel handler */
+        },
+        error: function (error) {
+          console.log(error);
+          /* error handler */
+        },
+        advanced: {
+          redirectUri: redirectUri,
+        },
+      };
+
+      function loadOneDrive() {
+        try {
+          OneDrive.open(odOptions);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="loadOneDrive()">Click Me</button>
+  </body>
+</html>
