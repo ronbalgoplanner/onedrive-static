@@ -8,7 +8,7 @@
     <script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js"></script>
     <script>
       let loaded = false;
-      const redirectUri = window.location.href + "callback.html";
+      const redirectUri = window.location.href.replace(/\/$/, "") + "/callback.html";
       var odOptions = {
         clientId: "e2949a80-a23b-4639-8325-4e65905321c8",
         action: "share",
